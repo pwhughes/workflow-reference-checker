@@ -1,24 +1,30 @@
-# ActionPin
+# Optomatic Workflow Reference Checker
 
+A browser-local check for repository maintainers who want to spot mutable external GitHub Actions references before a workflow runs.
 
-ActionPin is a browser-only diagnostic for one common CI supply-chain footgun: mutable GitHub Actions references such as `actions/checkout@v4`. A tag can move; a full commit SHA cannot.
+## What it checks
 
-## Free diagnostic
+Paste a workflow YAML file. The free check identifies external `uses:` references that are not pinned to a full commit SHA. It does not access repositories, change workflows, upload source code, or make a security certification.
 
-Paste a workflow YAML file at https://optomatic-holdco.vercel.app/lab/live-cohort/actionpin . The check runs locally in your browser—no repository access, token, workflow file, or source code is uploaded.
+## Use the live checker
 
-It flags action references that are not pinned to a full commit SHA so you can decide what to change before CI runs.
+Open **https://workflow-reference-checker.optomatic.app**. Your YAML stays in your browser.
 
 ## Paid deliverable — €9 one time
 
-For a workflow you have checked, ActionPin offers a CI action-pinning report: a structured record of mutable action references and the recommended pinning boundary. Checkout is one-time, with no subscription.
+After a successful Stripe Checkout payment, the same browser can download a timestamped workflow-reference report containing the diagnostic findings and submitted text. There is no subscription and no account requirement.
 
-Buy from the diagnostic page only if the free result identifies an issue you need to document.
+## Example
+
+```yaml
+name: CI
+uses: actions/checkout@v4
+```
+
+The free check will flag the mutable tag. A full 40-character commit SHA is the narrow immutable-reference boundary this checker recognizes.
 
 ## Limits
 
-ActionPin is a lightweight diagnostic, not a security audit or a replacement for code review. It does not modify workflows, access repositories, or make compliance claims.
+This is a deterministic workflow-text review aid, not a complete security audit or compliance advice. Review all workflow changes in your normal engineering process.
 
-## Why this exists
-
-Workflow dependencies are executable supply-chain inputs. Pinning third-party actions to immutable commit SHAs narrows the risk from a moved or compromised tag.
+Built by [Optomatic](https://optomatic.app). Privacy and contact details are on the live product page.
